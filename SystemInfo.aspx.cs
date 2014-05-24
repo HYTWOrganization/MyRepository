@@ -27,7 +27,7 @@ public partial class SystemInfo : System.Web.UI.Page
             Label_IPv6.Text = ipList[0].ToString();
         }
         Label_clientname.Text = Request.UserHostName;
-        Label_clientip.Text = Request.UserHostAddress;
+        Label_clientip.Text = Request.UserHostAddress;//UserHostAddress;
     }
     //获取IP地址
     public ArrayList getIpAddress()
