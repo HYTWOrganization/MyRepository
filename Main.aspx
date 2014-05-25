@@ -12,5 +12,9 @@
     
 </head>
 <body>
+    <div id="main-north"></div>
+    <div id="main-west"></div>
+    <div id="main-center"></div>
+    <div id="main-south"></div>
 </body>
 </html>

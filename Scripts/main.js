@@ -1,76 +1,94 @@
-﻿Ext.application({
-    name: "HelloExt",
-    launch: function () {
-        Ext.create('Ext.panel.Panel', {
-            width: 1024,
-            height: 720,
-            layout: 'border',
-            items: [{
-                region: 'north',
-                xtype: 'panel',
-                height: 100,
-                html: '<h>系统信息实时监控系统</h>',
-                margins: '0 5 5 5'
-            }, {
-                region: 'south',
-                xtype: 'panel',
-                height: 20,
-                split: false,
-                html: '欢迎登录!',
-                margins: '0 5 5 5'
-            }, {
-                title: '菜单栏',
-                region: 'west',
-                layout:'anchor',
-                xtype: 'panel',
-                margins: '5 0 0 5',
-                width: 200,
-                collapsible: true,
-                id: 'west-region-container',
-                layout: 'fit',
-                items: [
-                    {
-                        xtype: 'button',
-                        text: 'click me',
-                        height: 50,
-                        scale: 'medium',
-                        handler: function() {
-                            alert("you clicked the button");
-                        }
-                    }, {
-                        xtype: 'button',
-                        text: 'click me2',
-                        scale: 'medium',
-                        handler: function () {
-                            alert("you clicked the button");
-                        }
-                    },
-                    {
-                        xtype: 'button',
-                        text: 'click me3',
-                        scale: 'medium',
-                        handler: function () {
-                            alert("you clicked the button");
-                        }
-                    }, {
-                        xtype: 'button',
-                        text: 'click me4',
-                        scale: 'medium',
-                        handler: function () {
-                            alert("you clicked the button");
-                        }
-                    }
-
-                ]
-            }, {
-                title: '内容',
-                region: 'center',
-                xtype: 'panel',
-                layout: 'fit',
-                margins: '5 5 0 0',
-                html: '这是中间'
-            }],
-            renderTo: Ext.getBody()
+﻿JKXT = {
+    north: new Ext.panel.Panel({
+        region: 'north',
+        contentEl: 'main-north',
+        height: 100,
+        html: '<h1>系统信息实时监控系统</h1>',
+        margins: '0 5 5 5'
+    }),
+    south: new Ext.panel.Panel({
+        region: 'south',
+        contentEl: 'main-south',
+        height: 20,
+        split: false,
+        html: '欢迎登录!',
+        margins: '0 5 5 5'
+    }),
+    west: new Ext.panel.Panel({
+        title: '菜单栏',
+        region: 'west',
+        contentEl: 'main-west',
+        margins: '5 0 0 5',
+        width: 200,
+        collapsible: true,
+        id: 'west-region-container',
+        layout: 'fit',
+        items: []
+    }),
+    center: new Ext.panel.Panel({
+        title: '内容',
+        region: 'center',
+        contentEl: 'main-center',
+        layout: 'fit',
+        margins: '5 5 0 0',
+        html: '这是中间'
+    }),
+    menuData: [
+        {
+            name: '系统基本信息',
+            href: 'http://www.asp.net/cn'
+        }, {
+            name: '菜单2',
+            href: ''
+        }
+    ],
+    clearMainPanel: function () {
+        var items = JKXT.center.items;
+        for (var i = items.count() - 1; i >= 0; i--) {
+            JKXT.center.remove(items.get(i), true);
+        }
+        JKXT.center.items.clear();
+    },
+    mainPanelLoad: function (url) {
+        JKXT.clearMainPanel();
+        JKXT.center.load({
+            url: url,
+            nocache: true,
+            text: '载入中……',
+            timeout: 30,
+            scripts: true
         });
+        JKXT.center.doLayout();
     }
+}
+
+Ext.onReady(function () {
+    //菜单显示
+    var menuPanel = new Ext.Panel({
+        region: 'center',
+        bodyStyle: "background-color: white; padding: 0 4px",
+        border: false
+    });
+    var menuTpl = new Ext.Template("<span>{text}</span>").compile();
+    var menuBody = menuPanel.body;
+    for (var i = 0; i < JKXT.menuData.length; i++) {
+        
+        //var menuItem = menuBody.createChild({tag: 'h2', html: '朱元璋'});
+        /*menuItem.on('click', function (e) {
+        JKXT.mainPanelLoad(JKXT.menuData[i].href);
+        });*/
+    }
+    JKXT.west.add(menuPanel);
+    //主界面显示
+    var viewport = new Ext.Viewport({
+        layout: 'border',
+        renderTo: Ext.getBody(),
+        items: [
+			JKXT.north,
+            JKXT.west,
+            JKXT.center,
+            JKXT.south
+		]
+    });
 });
+
