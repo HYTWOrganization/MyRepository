@@ -6,7 +6,23 @@
 <head runat="server">
     <title>@ViewBag.Title</title>
     <link href="~/Scripts/extjs-4.2.1/resources/css/ext-all-neptune.css" rel="stylesheet" type="text/css" />
-    <script src="~/Scripts/extjs-4.2.1/ext-all-debug.js" type="text/javascript"></script>
+    <script src="~/Scripts/extjs-4.2.1/ext-all-debug.js" type="text/javascript">
+        Ext.define('MyApp.Application', {
+            name: 'MyApp',
+            extend: 'Ext.app.Application',
+            launch: function () {
+                Ext.create('Ext.Container.ViewPort', {
+                    layout: 'fit',
+                    items: [
+                    {
+                        title: 'Hello Ext',
+                        html: 'Hello, welcome to Ext JS!'
+                    }
+                ]
+                });
+            }
+        });
+    </script>
     <script src="~/Scripts/extjs-4.2.1/locale/ext-lang-zh_CN.js" type="text/javascript"></script>
     <!--<script type="text/javascript" src="~/Scripts/extjs-4.2.1/bootstrap.js"></script>-->
 </head>
