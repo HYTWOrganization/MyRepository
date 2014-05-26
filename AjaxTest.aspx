@@ -27,18 +27,12 @@
             renderTo: Ext.getBody(),
             handler: function () {
                 Ext.Ajax.request({
-                    url: 'AjaxTest.aspx/Ajax_Func2',
-                    //url: 'TestCPU.aspx/Ajax_Func1',
-                    /*headers: {
-                    'userHeader': 'userMsg'
-                    },*/
+                    //url: 'AjaxTest.aspx/Ajax_Func2',
+                    url: 'returnCPUInfo.aspx',
                     params: { a: 10, b: 20 },
-                    dataType: 'text',
                     method: 'GET',
                     success: function (response, options) {
                         Ext.MessageBox.alert('成功', '从服务端获取结果: ' + response.responseText);
-                        var retvalue = response.responseText;
-                        Ext.MessageBox.alert('成功', retvalue);
                     },
                     failure: function (response, options) {
                         Ext.MessageBox.alert('失败', '请求超时或网络故障,错误编号：' + response.status);

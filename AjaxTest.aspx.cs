@@ -8,6 +8,7 @@ using System.Collections;
 using System.Management;
 using System.Threading;
 using System.Web.Mvc;
+using System.Web.Mvc.Ajax;
 using System.Web.Script.Services;
 [ScriptService]
 public partial class AjaxTest : System.Web.UI.Page
@@ -46,16 +47,16 @@ public partial class AjaxTest : System.Web.UI.Page
         return "hello";
     }*/
   
-    public static string Ajax_Func2(int a, int b)
+    public string Ajax_Func2(int a, int b)
     {
-       // string userHeaderMsg = Convert.ToString(Request.Headers["userHeader"]);
-        //return Content("hello") ;
-        return "ehll";
+        return "hello" ; 
     }
     public string Ajax_Func1()
     {
         // string userHeaderMsg = Convert.ToString(Request.Headers["userHeader"]);
         //return Content("hello");
+        Response.Write("abc");
+       // response.write("abc");
         return "ehll";
     }
 }

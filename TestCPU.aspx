@@ -28,6 +28,27 @@
     Ext.onReady(function () {
         var chart, timeAxis;
 
+        Ext.create('Ext.Button', {
+            text: '获取CPU利用率',
+            renderTo: Ext.getBody(),
+            handler: function () {
+                Ext.Ajax.request({
+                    //url: 'AjaxTest.aspx/Ajax_Func2',
+                    url: 'returnCPUInfo.aspx',
+                    params: { a: 10, b: 20 },
+                    method: 'GET',
+                    success: function (response, options) {
+                        Ext.MessageBox.alert('成功', '从服务端获取结果: ' + response.responseText);
+                    },
+                    failure: function (response, options) {
+                        Ext.MessageBox.alert('失败', '请求超时或网络故障,错误编号：' + response.status);
+                    }
+                });
+            },
+            id: "bt1"
+        });
+
+
         var generateData = (function () {
             var data = [], i = 0,
             last = false,
