@@ -28,22 +28,38 @@
     Ext.onReady(function () {
         var chart, timeAxis;
 
+        function getCPUValue(){
+             var retValue = 0;
+             Ext.Ajax.request({
+                    //url: 'AjaxTest.aspx/Ajax_Func2',
+                    url: 'returnCPUInfo.aspx',  //cpu处理页面
+                    //params: { a: 10, b: 20 },
+                    method: 'GET',
+                    type:'text/html',
+                    async: false,
+                    success: function (response, options) {
+                        //Ext.MessageBox.alert('成功', '结果: ' + response.responseText);
+
+                        //var aa = response.responseText.getElementById("cpuInfo").innerText;
+                        //retValue = Number(response.responseText);
+                        //var aa = '123';
+                        retValue = Number(response.responseText);
+                        // Ext.MessageBox.alert('成功', retValue);
+                        return retValue;
+                    },
+                    failure: function (response, options) {
+                        Ext.MessageBox.alert('失败', '错误编号：' + response.status);
+                        return 0 ;
+                    }
+                });
+            return retValue;
+        }
+
         Ext.create('Ext.Button', {
             text: '获取CPU利用率',
             renderTo: Ext.getBody(),
             handler: function () {
-                Ext.Ajax.request({
-                    //url: 'AjaxTest.aspx/Ajax_Func2',
-                    url: 'returnCPUInfo.aspx',
-                    params: { a: 10, b: 20 },
-                    method: 'GET',
-                    success: function (response, options) {
-                        Ext.MessageBox.alert('成功', '从服务端获取结果: ' + response.responseText);
-                    },
-                    failure: function (response, options) {
-                        Ext.MessageBox.alert('失败', '请求超时或网络故障,错误编号：' + response.status);
-                    }
-                });
+               getCPUValue();
             },
             id: "bt1"
         });
@@ -57,11 +73,16 @@
             min = Math.min,
             max = Math.max,
             random = Math.random;
+            cpuValue = 0;
             return function () {
                 data = data.slice();
+                cpuValue = getCPUValue();
+                //Ext.MessageBox.alert('成功', cpuValue);
                 data.push({
                     date: Ext.Date.add(date, Ext.Date.SECOND, i++),
-                    visits: min(100, max(last ? last.visits + (random() - 0.5) * 20 : random() * 100, 0))
+                    //visits: min(100, max(last ? last.visits + (random() - 0.5) * 20 : random() * 100, 0))
+                    visits: cpuValue
+
                 });
                 last = data[data.length - 1];
                 return data;
@@ -103,7 +124,7 @@
                 chart.markerIndex = markerIndex;
             }
             store.loadData(gs);
-        }, 1000);
+        }, 5000);
 
        /* var myDate = new Date();  
         myDate.getYear();      //获取当前年份(2位)

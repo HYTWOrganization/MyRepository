@@ -7,6 +7,9 @@
     <title></title>
 </head>
 <body>
-   <%=getCPUInfo() %>
+<div id="cpuInfo">
+   
+</div>
+  
 </body>
 </html>

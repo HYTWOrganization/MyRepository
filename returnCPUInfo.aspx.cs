@@ -12,7 +12,16 @@ public partial class returnCPUInfo : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        /*Response.ContentType = "html/text";
+        string cpuValue = getCPUInfo();
+        Response.Write(cpuValue);*/
+        Response.Clear();
 
+    Response.ClearHeaders();
+        string cpuValue = getCPUInfo();
+        Response.Write(cpuValue);
+
+    Response.End();
     }
     //获取设备信息
     public string getSearchInfo(string name)
