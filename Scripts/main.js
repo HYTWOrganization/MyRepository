@@ -43,6 +43,7 @@
         }
     ],
     clearMainPanel: function () {
+        alert("clear");
         var items = JKXT.center.items;
         for (var i = items.count() - 1; i >= 0; i--) {
             JKXT.center.remove(items.get(i), true);
@@ -50,6 +51,7 @@
         JKXT.center.items.clear();
     },
     mainPanelLoad: function (url) {
+        alert("load");
         JKXT.clearMainPanel();
         JKXT.center.load({
             url: url,
@@ -69,14 +71,21 @@ Ext.onReady(function () {
         bodyStyle: "background-color: white; padding: 0 4px",
         border: false
     });
-    var menuTpl = new Ext.Template("<span>{text}</span>").compile();
-    var menuBody = menuPanel.body;
     for (var i = 0; i < JKXT.menuData.length; i++) {
-        
-        //var menuItem = menuBody.createChild({tag: 'h2', html: '朱元璋'});
-        /*menuItem.on('click', function (e) {
-        JKXT.mainPanelLoad(JKXT.menuData[i].href);
-        });*/
+        var menuItem = new Ext.button.Button({
+            width: 190,
+            height: 50,
+            scale: 'large',
+            text: JKXT.menuData[i].name,
+            listeners: {
+                click: {
+                    fn: function () {
+                        JKXT.mainPanelLoad(JKXT.menuData[i].href);
+                    }
+                }
+            }
+        });
+        menuPanel.add(menuItem);
     }
     JKXT.west.add(menuPanel);
     //主界面显示
