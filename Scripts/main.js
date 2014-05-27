@@ -29,6 +29,7 @@
         title: '内容',
         region: 'center',
         contentEl: 'main-center',
+        id: 'center',
         layout: 'fit',
         margins: '5 5 0 0',
         html: '这是中间'
@@ -49,10 +50,12 @@
             JKXT.center.remove(items.get(i), true);
         }
         JKXT.center.items.clear();
+        JKXT.center.body.update("");
     },
     mainPanelLoad: function (url) {
         alert("load");
         JKXT.clearMainPanel();
+        Ext.get("center").mask("loading");
         JKXT.center.load({
             url: url,
             nocache: true,
@@ -77,12 +80,19 @@ Ext.onReady(function () {
             height: 50,
             scale: 'large',
             text: JKXT.menuData[i].name,
-            listeners: {
-                click: {
-                    fn: function () {
-                        JKXT.mainPanelLoad(JKXT.menuData[i].href);
+            handler: function () {
+                Ext.Ajax.Request({
+                    url: 'returnCPUInfo.aspx',
+                    method: 'GET',
+                    type: 'text/html',
+                    async: false,
+                    success: function (response, options) {
+                        alert("success");
+                        //JKXT.center.body.load();
+                        var ss = document.getElementById('main-center'); 
+                        ss.innerHTML = 'a';
                     }
-                }
+                });
             }
         });
         menuPanel.add(menuItem);
