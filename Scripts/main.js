@@ -32,14 +32,18 @@
         id: 'center',
         layout: 'fit',
         margins: '5 5 0 0',
-        html: '这是中间'
+        html:' <iframe scrolling="auto" frameborder="0" width="100%" height="100%" src="SystemInfo.aspx"> </iframe>'
+        
     }),
     menuData: [
         {
             name: '系统基本信息',
             href: 'http://www.asp.net/cn'
         }, {
-            name: '菜单2',
+            name: 'CPU利用率',
+            href: ''
+        }, {
+            name: '硬盘使用情况',
             href: ''
         }
     ],
@@ -74,7 +78,7 @@ Ext.onReady(function () {
         bodyStyle: "background-color: white; padding: 0 4px",
         border: false
     });
-    for (var i = 0; i < JKXT.menuData.length; i++) {
+    /*for (var i = 0; i < JKXT.menuData.length; i++) {
         var menuItem = new Ext.button.Button({
             width: 190,
             height: 50,
@@ -96,7 +100,39 @@ Ext.onReady(function () {
             }
         });
         menuPanel.add(menuItem);
-    }
+    }*/
+    var menuItem1 = new Ext.button.Button({
+        width: 190,
+        height: 50,
+        scale: 'large',
+        text: JKXT.menuData[0].name,
+        handler: function () {
+            Ext.getCmp('center').body.update('<iframe scrolling="auto" frameborder="0" width="100%" height="100%" src="SystemInfo.aspx"></iframe>');
+        }
+    });
+    var menuItem2 = new Ext.button.Button({
+    	width: 190,
+    	height: 50,
+    	scale: 'large',
+    	text: JKXT.menuData[1].name,
+    	handler: function () {
+    		Ext.getCmp('center').body.update('<iframe scrolling="auto" frameborder="0" width="100%" height="100%" src="TestCPU.aspx"></iframe>');
+    		
+    	}
+    });
+    var menuItem2 = new Ext.button.Button({
+    	width: 190,
+    	height: 50,
+    	scale: 'large',
+    	text: JKXT.menuData[2].name,
+    	handler: function () {
+    		Ext.getCmp('center').body.update('<iframe scrolling="auto" frameborder="0" width="100%" height="100%" src="TestCPU.aspx"></iframe>');
+    		
+    	}
+    });
+    menuPanel.add(menuItem1);
+    menuPanel.add(menuItem2);
+    menuPanel.add(menuItem3);
     JKXT.west.add(menuPanel);
     //主界面显示
     var viewport = new Ext.Viewport({
