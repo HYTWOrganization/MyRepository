@@ -19,16 +19,16 @@
 </body>
 </html>
 <script type="text/javascript">
-    /*function init_ext() {
-    }
-    Ext.onReady(init_ext);*/
-    //alert("2");
-    Ext.require('Ext.chart.*');
-
-    Ext.onReady(function () {
-        var chart, timeAxis;
-
-        function getCPUValue(){
+    var chart, timeAxis;
+    
+    Ext.define('My.Sample.HandleCPU',{
+	    name:'unknown',
+	    constructor:function(name){
+	    	if(name){
+	    		this.name = name;
+	    	}
+	    },
+	    getCPUValue:function(){
              var retValue = 0;
              Ext.Ajax.request({
                     //url: 'AjaxTest.aspx/Ajax_Func2',
@@ -53,19 +53,19 @@
                     }
                 });
             return retValue;
-        }
-
-        Ext.create('Ext.Button', {
-            text: '获取CPU利用率',
-            renderTo: Ext.getBody(),
-            handler: function () {
-               getCPUValue();
-            },
-            id: "bt1"
-        });
-
-
-        var generateData = (function () {
+        },
+        
+        regroup:function() {
+            group = !group;
+            var axis = chart.axes.get(1),
+            selectedGroup = groupOp[+group];
+            axis.dateFormat = selectedGroup.dateFormat;
+            axis.groupBy = selectedGroup.groupBy;
+            chart.redraw();
+        },
+        
+        genData:function () {
+        var cpuObj1 = Ext.create('My.Sample.HandleCPU',"handleCPU");
             var data = [], i = 0,
             last = false,
             date = new Date("April 2 2013 10:10:1"),
@@ -76,8 +76,8 @@
             cpuValue = 0;
             return function () {
                 data = data.slice();
-                cpuValue = getCPUValue();
-                //Ext.MessageBox.alert('成功', cpuValue);
+                cpuValue = cpuObj1.getCPUValue();
+                //cpuValue = this.getCPUValue();
                 data.push({
                     date: Ext.Date.add(date, Ext.Date.SECOND, i++),
                     //visits: min(100, max(last ? last.visits + (random() - 0.5) * 20 : random() * 100, 0))
@@ -87,7 +87,25 @@
                 last = data[data.length - 1];
                 return data;
             };
-        })();
+        }
+        
+        
+    });
+    Ext.require('Ext.chart.*');
+
+    Ext.onReady(function () {
+    	var cpuObj = Ext.create('My.Sample.HandleCPU',"handleCPU");
+        Ext.create('Ext.Button', {
+            text: '获取CPU利用率',
+            renderTo: Ext.getBody(),
+            handler: function () {
+               cpuObj.getCPUValue();
+            },
+            id: "bt1"
+        });
+
+
+        var generateData = cpuObj.genData();
 
         var group = false,
         groupOp = [{
@@ -98,14 +116,7 @@
             groupBy: 'hour,minute,second',
         }];
 
-        function regroup() {
-            group = !group;
-            var axis = chart.axes.get(1),
-            selectedGroup = groupOp[+group];
-            axis.dateFormat = selectedGroup.dateFormat;
-            axis.groupBy = selectedGroup.groupBy;
-            chart.redraw();
-        }
+        
 
         var store = Ext.create('Ext.data.JsonStore', {
             fields: ['date', 'visits'],

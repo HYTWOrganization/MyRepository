@@ -20,8 +20,9 @@ public partial class SystemInfo : System.Web.UI.Page
         Thread.CurrentThread.CurrentUICulture = new CultureInfo(Request.UserLanguages[0]);
         LocRM = new ResourceManager("HandleSystemInfo.strings", typeof(SystemInfo).Assembly);
 
-        string pname = HttpContext.GetGlobalResourceObject("strings", "pc_name", new CultureInfo(Request.UserLanguages[0])).ToString();
-
+        //string pname = HttpContext.GetGlobalResourceObject("strings", "pc_name", new CultureInfo(Request.UserLanguages[0])).ToString();
+        string pname = HttpContext.GetGlobalResourceObject("strings", "pc_name").ToString();
+        //HttpContext.GetGlobalResourceObject(
         ArrayList ipList = getIpAddress();
         String hostName = getComputerName();
         //Label1.Text = LocRM.GetString("pc_name");
