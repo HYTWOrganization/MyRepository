@@ -16,12 +16,16 @@ public partial class SystemInfo : System.Web.UI.Page
     protected ResourceManager LocRM;
     protected void Page_Load(object sender, EventArgs e)
     {
-        LocRM = new ResourceManager("LocProject.strings", typeof(SystemInfo).Assembly);
         Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(Request.UserLanguages[0]);
         Thread.CurrentThread.CurrentUICulture = new CultureInfo(Request.UserLanguages[0]);
+        LocRM = new ResourceManager("HandleSystemInfo.strings", typeof(SystemInfo).Assembly);
+
+        string pname = HttpContext.GetGlobalResourceObject("strings", "pc_name", new CultureInfo(Request.UserLanguages[0])).ToString();
+
         ArrayList ipList = getIpAddress();
         String hostName = getComputerName();
-        Label1.Text = LocRM.GetString("pc_name");
+        //Label1.Text = LocRM.GetString("pc_name");
+        Label1.Text = pname;
         Label_Name.Text = hostName;
         if (ipList.Count == 1)
         {

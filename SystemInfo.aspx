@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="SystemInfo.aspx.cs" Inherits="SystemInfo" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="SystemInfo.aspx.cs" Inherits="SystemInfo" culture="auto" meta:resourcekey="PageResource1" uiculture="auto" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -30,24 +30,36 @@
    <form id="form1" runat="server">
     <div>
          
-        <asp:Label ID="Label1" runat="server" Text="机器名称:"></asp:Label>
-        <asp:Label ID="Label_Name" runat="server" Text="Label"></asp:Label>
+        <asp:Label ID="Label1" runat="server" Text="机器名称:" 
+            meta:resourcekey="Label1Resource1"></asp:Label>
+        <asp:Label ID="Label_Name" runat="server" Text="Label" 
+            meta:resourcekey="Label_NameResource1"></asp:Label>
         <br />
-        <asp:Label ID="Label2" runat="server" Text="IPv4地址:"></asp:Label>
-        <asp:Label ID="Label_IPv4" runat="server" Text="Label"></asp:Label>
+        <asp:Label ID="Label2" runat="server" Text="IPv4地址:" 
+            meta:resourcekey="Label2Resource1"></asp:Label>
+        <asp:Label ID="Label_IPv4" runat="server" Text="Label" 
+            meta:resourcekey="Label_IPv4Resource1"></asp:Label>
         <br />
-        <asp:Label ID="Label3" runat="server" Text="IPv6地址:"></asp:Label>
-        <asp:Label ID="Label_IPv6" runat="server" Text="Label"></asp:Label>
+        <asp:Label ID="Label3" runat="server" Text="IPv6地址:" 
+            meta:resourcekey="Label3Resource1"></asp:Label>
+        <asp:Label ID="Label_IPv6" runat="server" Text="Label" 
+            meta:resourcekey="Label_IPv6Resource1"></asp:Label>
         <br />
-        <asp:Label ID="Label4" runat="server" Text="客户端机器名称:"></asp:Label>
-        <asp:Label ID="Label_clientname" runat="server" Text="Label"></asp:Label>
+        <asp:Label ID="Label4" runat="server" Text="客户端机器名称:" 
+            meta:resourcekey="Label4Resource1"></asp:Label>
+        <asp:Label ID="Label_clientname" runat="server" Text="Label" 
+            meta:resourcekey="Label_clientnameResource1"></asp:Label>
         <br />
-        <asp:Label ID="Label5" runat="server" Text="客户端IP:"></asp:Label>
-        <asp:Label ID="Label_clientip" runat="server" Text="Label"></asp:Label>
+        <asp:Label ID="Label5" runat="server" Text="客户端IP:" 
+            meta:resourcekey="Label5Resource1"></asp:Label>
+        <asp:Label ID="Label_clientip" runat="server" Text="Label" 
+            meta:resourcekey="Label_clientipResource1"></asp:Label>
         <br />
-        <asp:Button ID="Button1" runat="server" onclick="Button1_Click" Text="Button" />
+        <asp:Button ID="Button1" runat="server" onclick="Button1_Click" Text="Button" 
+            meta:resourcekey="Button1Resource1" />
         <br />
-        <asp:TextBox ID="TextBox_CPU" runat="server" Height="82px" TextMode="MultiLine"></asp:TextBox>
+        <asp:TextBox ID="TextBox_CPU" runat="server" Height="82px" TextMode="MultiLine" 
+            meta:resourcekey="TextBox_CPUResource1"></asp:TextBox>
          
     </div>
     </form>
